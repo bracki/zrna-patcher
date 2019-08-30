@@ -45,12 +45,13 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 		return (
 			<Body>
 				<Header>
-					<div className="title">Storm React Diagrams - DnD demo</div>
+					<div className="title">ZRNA patcher</div>
 				</Header>
 				<Content>
 					<TrayWidget>
-						<TrayItemWidget model={{ type: 'in' }} name="In Node" color="rgb(192,255,0)" />
-						<TrayItemWidget model={{ type: 'out' }} name="Out Node" color="rgb(0,192,255)" />
+						<TrayItemWidget model={{ type: 'AudioIn' }} name="AudioIn" color="rgb(192,255,0)" />
+						<TrayItemWidget model={{ type: 'AudioOut' }} name="AudioOut" color="rgb(0,192,255)" />
+						<TrayItemWidget model={{ type: 'GainInv' }} name="GainInv" color="rgb(192,192,255)" />
 					</TrayWidget>
 					<Layer
 						onDrop={event => {
@@ -63,12 +64,19 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 							).length;
 
 							var node: DefaultNodeModel;
-							if (data.type === 'in') {
-								node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(192,255,0)');
-								node.addInPort('In');
+							if (data.type === 'AudioIn') {
+								node = new DefaultNodeModel('AudioIn ' + (nodesCount + 1), 'rgb(192,255,0)');
+								node.addOutPort('output');
+							} else if (data.type === 'AudioOut') {
+								node = new DefaultNodeModel('AudioOut ' + (nodesCount + 1), 'rgb(0,192,255)');
+								node.addInPort('input');
+							} else if (data.type === 'GainInv') {
+								node = new DefaultNodeModel('GainInv ' + (nodesCount + 1), 'rgb(0,192,255)');
+								node.addInPort('input');
+								node.addOutPort('output');
 							} else {
 								node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(0,192,255)');
-								node.addOutPort('Out');
+								node.addOutPort('output');
 							}
 							var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
 							node.setPosition(point);
