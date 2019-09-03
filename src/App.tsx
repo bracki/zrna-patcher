@@ -11,12 +11,6 @@ export class App {
 		this.diagramEngine = SRD.default();
 		this.activeModel = new SRD.DiagramModel();
 		this.diagramEngine.setModel(this.activeModel);
-		//this.newModel();
-	}
-
-	public newModel() {
-		this.activeModel = new SRD.DiagramModel();
-		this.diagramEngine.setModel(this.activeModel);
 	}
 
 	public getActiveDiagram(): SRD.DiagramModel {
