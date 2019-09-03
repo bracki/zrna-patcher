@@ -9,6 +9,7 @@ import { DemoCanvasWidget } from '../helpers/DemoCanvasWidget';
 import { DemoButton, DemoWorkspaceWidget } from '../helpers/DemoWorkspaceWidget';
 import styled from '@emotion/styled';
 import { AnalogModule } from '../zrna/AnalogModule';
+import {Helper} from '../helpers/Helper';
 
 export interface BodyWidgetProps {
 	app: App;
@@ -53,7 +54,7 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 				<Content>
 					<TrayWidget>
 						{ this.props.modules.map((m: AnalogModule, i: number) => (
-							<TrayItemWidget model={{ type: m.type }} name={m.type} color="rgb(192,255,0)" />
+							<TrayItemWidget model={{ type: m.type }} name={m.type} color={Helper.stringToColor(m.type)} />
 						))}
 					</TrayWidget>
 					<Layer
@@ -68,8 +69,7 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 
 							var node: DefaultNodeModel;
 							const analogModule = this.props.modules.find((m) => m.type === data.type);
-							// TODO: Assign a unique colour
-							node = new DefaultNodeModel(analogModule!.type + ' ' + (nodesCount + 1), 'rgb(192,255,0)' );
+							node = new DefaultNodeModel(analogModule!.type + ' ' + (nodesCount + 1), Helper.stringToColor(analogModule!.type) );
 							analogModule!.inputs.forEach((i) => node.addInPort(i));
 							analogModule!.outputs.forEach((i) => node.addOutPort(i));
 							var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
@@ -87,7 +87,7 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 							buttons={
 								<DemoButton
 									onClick={() => {
-										console.log(this.props.app.getDiagramEngine().getModel().getModels());
+										console.log(this.props.app.getDiagramEngine().getModel().getNodes());
 										console.log(this.props.app.getDiagramEngine().getModel().getLinks());
 									}}>
 									Serialize Graph
