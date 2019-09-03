@@ -4,6 +4,7 @@ import { DiagramEngine } from '@projectstorm/react-diagrams-core';
 import { DefaultPortLabel, DefaultPortModel } from '@projectstorm/react-diagrams-defaults';
 import styled from '@emotion/styled';
 import { AnalogModuleNodeModel } from './AnalogModuleNodeModel';
+import { Knob } from 'react-rotary-knob';
 
 export const Node = styled.div<{ background: string; selected: boolean }>`
 		background-color: ${p => p.background};
@@ -80,6 +81,15 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 		return <DefaultPortLabel engine={this.props.engine} port={port} key={port.getID()} />;
 	};
 
+	generateKnob = (parameter: string) => {
+		return (
+			<div>
+				<div>{parameter}</div>
+				<Knob min={0} max={100} onChange={(p: string) => console.log("Changed knob " + p)}></Knob>
+			</div>
+		)
+	}
+
 	render() {
 		return (
 			<Node
@@ -90,7 +100,7 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 					<TitleName>{this.props.node.getOptions().name}</TitleName>
 				</Title>
 				<Parameters>
-					<ParametersContainer>{_.map(this.props.node.getParameters(), (p: string) => {return <div>{p}</div>})}</ParametersContainer>
+					<ParametersContainer>{_.map(this.props.node.getParameters(), this.generateKnob)}</ParametersContainer>
 				</Parameters>
 				<Ports>
 					<PortsContainer>{_.map(this.props.node.getInPorts(), this.generatePort)}</PortsContainer>
