@@ -1,4 +1,5 @@
 import * as SRD from '@projectstorm/react-diagrams';
+import { AnalogModuleNodeFactory } from './components/AnalogModuleNodeFactory';
 
 /**
  * @author Dylan Vorster
@@ -9,6 +10,7 @@ export class App {
 
 	constructor() {
 		this.diagramEngine = SRD.default();
+		this.diagramEngine.getNodeFactories().registerFactory(new AnalogModuleNodeFactory());
 		this.activeModel = new SRD.DiagramModel();
 		this.diagramEngine.setModel(this.activeModel);
 	}

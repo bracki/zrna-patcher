@@ -3,13 +3,13 @@ import * as _ from 'lodash';
 import { TrayWidget } from './TrayWidget';
 import { App } from '../App';
 import { TrayItemWidget } from './TrayItemWidget';
-import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DemoCanvasWidget } from '../helpers/DemoCanvasWidget';
 import { DemoButton, DemoWorkspaceWidget } from '../helpers/DemoWorkspaceWidget';
 import styled from '@emotion/styled';
 import { AnalogModule } from '../zrna/AnalogModule';
 import {Helper} from '../helpers/Helper';
+import { AnalogModuleNodeModel } from './AnalogModuleNodeModel';
 
 export interface BodyWidgetProps {
 	app: App;
@@ -67,9 +67,9 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 									.getNodes()
 							).length;
 
-							var node: DefaultNodeModel;
+							var node: AnalogModuleNodeModel;
 							const analogModule = this.props.analogModules.find((m) => m.type === data.type);
-							node = new DefaultNodeModel(analogModule!.type + ' ' + (nodesCount + 1), Helper.stringToColor(analogModule!.type) );
+							node = new AnalogModuleNodeModel({parameters: analogModule!.parameters, name: analogModule!.type + ' ' + (nodesCount + 1), color: Helper.stringToColor(analogModule!.type)});
 							analogModule!.inputs.forEach((i) => node.addInPort(i));
 							analogModule!.outputs.forEach((i) => node.addOutPort(i));
 							var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
