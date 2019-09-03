@@ -13,7 +13,7 @@ import {Helper} from '../helpers/Helper';
 
 export interface BodyWidgetProps {
 	app: App;
-	modules: Array<AnalogModule>;
+	analogModules: Array<AnalogModule>;
 }
 
 export const Body = styled.div`
@@ -53,8 +53,8 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 				</Header>
 				<Content>
 					<TrayWidget>
-						{ this.props.modules.map((m: AnalogModule, i: number) => (
-							<TrayItemWidget model={{ type: m.type }} name={m.type} color={Helper.stringToColor(m.type)} />
+						{ this.props.analogModules.map((m: AnalogModule, i: number) => (
+							<TrayItemWidget model={{ type: m.type }} name={m.type} color={Helper.stringToColor(m.type)} key={i} />
 						))}
 					</TrayWidget>
 					<Layer
@@ -68,7 +68,7 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 							).length;
 
 							var node: DefaultNodeModel;
-							const analogModule = this.props.modules.find((m) => m.type === data.type);
+							const analogModule = this.props.analogModules.find((m) => m.type === data.type);
 							node = new DefaultNodeModel(analogModule!.type + ' ' + (nodesCount + 1), Helper.stringToColor(analogModule!.type) );
 							analogModule!.inputs.forEach((i) => node.addInPort(i));
 							analogModule!.outputs.forEach((i) => node.addOutPort(i));
