@@ -1,15 +1,16 @@
-import * as React from 'react';
-import * as _ from 'lodash';
-import { TrayWidget } from './TrayWidget';
-import { App } from '../App';
-import { TrayItemWidget } from './TrayItemWidget';
+import styled from '@emotion/styled';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
+import * as _ from 'lodash';
+import * as React from 'react';
+import * as request from 'request';
+import { App } from '../App';
 import { DemoCanvasWidget } from '../helpers/DemoCanvasWidget';
 import { DemoButton, DemoWorkspaceWidget } from '../helpers/DemoWorkspaceWidget';
-import styled from '@emotion/styled';
+import { Helper } from '../helpers/Helper';
 import { AnalogModule } from '../zrna/AnalogModule';
-import {Helper} from '../helpers/Helper';
 import { AnalogModuleNodeModel } from './AnalogModuleNodeModel';
+import { TrayItemWidget } from './TrayItemWidget';
+import { TrayWidget } from './TrayWidget';
 
 export interface BodyWidgetProps {
 	app: App;
@@ -88,8 +89,11 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 							buttons={
 								<DemoButton
 									onClick={() => {
-										console.log(this.props.app.getDiagramEngine().getModel().getNodes());
-										console.log(this.props.app.getDiagramEngine().getModel().getLinks());
+										console.log("jajajaja");
+										//const nodes = this.props.app.getDiagramEngine().getModel().getNodes();
+										const model = this.props.app.getDiagramEngine().getModel().serialize();
+										request.post("http://localhost:5000").json({model: model});
+										console.log("ende");
 									}}>
 									Serialize Graph
 								</DemoButton>

@@ -16,4 +16,16 @@ export class AnalogModuleNodeModel extends DefaultNodeModel {
 	getParameters(): string[] {
 		return this.parameters;
 	}
+
+	serialize() {
+		return {
+			...super.serialize(),
+			parameters: this.parameters
+		};
+	}
+
+	deserialize(event: any): void {
+		super.deserialize(event);
+		this.parameters = event.data.parameters;
+	}
 }
