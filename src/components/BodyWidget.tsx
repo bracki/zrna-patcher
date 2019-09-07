@@ -55,7 +55,7 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 				</Header>
 				<Content>
 					<TrayWidget>
-						{ this.props.analogModules.map((m: AnalogModule, i: number) => (
+						{this.props.analogModules.map((m: AnalogModule, i: number) => (
 							<TrayItemWidget model={{ type: m.type }} name={m.type} color={Helper.stringToColor(m.type)} key={i} />
 						))}
 					</TrayWidget>
@@ -71,7 +71,13 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 
 							var node: AnalogModuleNodeModel;
 							const analogModule = this.props.analogModules.find((m) => m.type === data.type);
-							node = new AnalogModuleNodeModel({parameters: analogModule!.parameters, name: analogModule!.type + ' ' + (nodesCount + 1), color: Helper.stringToColor(analogModule!.type)});
+							node = new AnalogModuleNodeModel(
+								{
+									zrnaType: analogModule!.type,
+									parameters: analogModule!.parameters,
+									name: analogModule!.type + ' ' + (nodesCount + 1),
+									color: Helper.stringToColor(analogModule!.type)
+								});
 							analogModule!.inputs.forEach((i) => node.addInPort(i));
 							analogModule!.outputs.forEach((i) => node.addOutPort(i));
 							var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
@@ -92,7 +98,7 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 										console.log("jajajaja");
 										//const nodes = this.props.app.getDiagramEngine().getModel().getNodes();
 										const model = this.props.app.getDiagramEngine().getModel().serialize();
-										request.post("http://localhost:5000").json({model: model});
+										request.post("http://localhost:5000").json({ model: model });
 										console.log("ende");
 									}}>
 									Serialize Graph
