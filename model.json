@@ -1,0 +1,208 @@
+{
+    "model": {
+        "id": "f6695001-1875-4fcf-a0cf-7026a1ee37ce",
+        "offsetX": 18.618625406900975,
+        "offsetY": 44.209833333333194,
+        "zoom": 85.43333333333338,
+        "gridSize": 0,
+        "layers": [
+            {
+                "id": "1ea68f9f-e386-44ef-8f19-d9ee23d9d696",
+                "type": "diagram-links",
+                "isSvg": true,
+                "transformed": true,
+                "models": {
+                    "47991cf3-b260-41b0-a6f9-f95238fcb489": {
+                        "id": "47991cf3-b260-41b0-a6f9-f95238fcb489",
+                        "type": "default",
+                        "selected": false,
+                        "source": "bfeb3675-2afc-4e99-9035-d3e0bc6dc487",
+                        "sourcePort": "6a5f4a7b-5b2e-4d8f-a318-2757d662ab4b",
+                        "target": "75834395-b505-44bc-b082-160f5e34915a",
+                        "targetPort": "38687884-ce7e-4710-a5d1-de5ee91f1964",
+                        "points": [
+                            {
+                                "id": "eb4af468-906a-4073-ba0a-f176aa6466df",
+                                "type": "point",
+                                "x": 383.0741843388407,
+                                "y": 424.55930014322655
+                            },
+                            {
+                                "id": "8e7806f5-49d1-4231-9c41-027a4f868dc8",
+                                "type": "point",
+                                "x": 597.315298496444,
+                                "y": 373.0571542204798
+                            }
+                        ],
+                        "labels": [],
+                        "width": 3,
+                        "color": "gray",
+                        "curvyness": 50,
+                        "selectedColor": "rgb(0,192,255)"
+                    },
+                    "3352267e-a3e7-4672-9f3c-c74cdc9412c5": {
+                        "id": "3352267e-a3e7-4672-9f3c-c74cdc9412c5",
+                        "type": "default",
+                        "selected": false,
+                        "source": "75834395-b505-44bc-b082-160f5e34915a",
+                        "sourcePort": "1f61bc03-2d9b-4ecf-949d-708b4f0d6cf1",
+                        "target": "eeacda52-1dc5-4351-8805-158f19a96226",
+                        "targetPort": "0e2ff35b-56e1-492e-8954-6a2be90dd543",
+                        "points": [
+                            {
+                                "id": "86d0086d-e3d3-4c41-a833-b543b53d2e3e",
+                                "type": "point",
+                                "x": 696.729994447539,
+                                "y": 373.0571542204798
+                            },
+                            {
+                                "id": "9886b228-6c6b-4cca-be15-ea03ebe8322f",
+                                "type": "point",
+                                "x": 980.089395523815,
+                                "y": 321.4574901686484
+                            }
+                        ],
+                        "labels": [],
+                        "width": 3,
+                        "color": "gray",
+                        "curvyness": 50,
+                        "selectedColor": "rgb(0,192,255)"
+                    }
+                }
+            },
+            {
+                "id": "6d7feee3-e791-4f2f-9e45-6094f3e4ae42",
+                "type": "diagram-nodes",
+                "isSvg": false,
+                "transformed": true,
+                "models": {
+                    "75834395-b505-44bc-b082-160f5e34915a": {
+                        "id": "75834395-b505-44bc-b082-160f5e34915a",
+                        "type": "analog-module-node",
+                        "x": 587.8244537460677,
+                        "y": 218.05325790089742,
+                        "ports": [
+                            {
+                                "id": "38687884-ce7e-4710-a5d1-de5ee91f1964",
+                                "type": "default",
+                                "x": 589.8143236723624,
+                                "y": 365.5561793963982,
+                                "name": "input",
+                                "alignment": "left",
+                                "parentNode": "75834395-b505-44bc-b082-160f5e34915a",
+                                "links": [
+                                    "47991cf3-b260-41b0-a6f9-f95238fcb489"
+                                ],
+                                "in": true,
+                                "label": "input"
+                            },
+                            {
+                                "id": "1f61bc03-2d9b-4ecf-949d-708b4f0d6cf1",
+                                "type": "default",
+                                "x": 689.2290196234574,
+                                "y": 365.5561793963982,
+                                "name": "output",
+                                "alignment": "right",
+                                "parentNode": "75834395-b505-44bc-b082-160f5e34915a",
+                                "links": [
+                                    "3352267e-a3e7-4672-9f3c-c74cdc9412c5"
+                                ],
+                                "in": false,
+                                "label": "output"
+                            }
+                        ],
+                        "name": "FilterLowpass 1",
+                        "color": "#f7f894",
+                        "portsInOrder": [
+                            "38687884-ce7e-4710-a5d1-de5ee91f1964"
+                        ],
+                        "portsOutOrder": [
+                            "1f61bc03-2d9b-4ecf-949d-708b4f0d6cf1"
+                        ],
+                        "parameters": [
+                            "corner_frequency",
+                            "gain"
+                        ],
+                        "zrnaType": "FilterLowpass"
+                    },
+                    "eeacda52-1dc5-4351-8805-158f19a96226": {
+                        "id": "eeacda52-1dc5-4351-8805-158f19a96226",
+                        "type": "analog-module-node",
+                        "x": 970.57903821739,
+                        "y": 289.45396020288723,
+                        "ports": [
+                            {
+                                "id": "0e2ff35b-56e1-492e-8954-6a2be90dd543",
+                                "type": "default",
+                                "x": 972.5884117695018,
+                                "y": 313.95651534456687,
+                                "name": "input",
+                                "alignment": "left",
+                                "parentNode": "eeacda52-1dc5-4351-8805-158f19a96226",
+                                "links": [
+                                    "3352267e-a3e7-4672-9f3c-c74cdc9412c5"
+                                ],
+                                "in": true,
+                                "label": "input"
+                            }
+                        ],
+                        "name": "AudioOut 2",
+                        "color": "#b644cf",
+                        "portsInOrder": [
+                            "0e2ff35b-56e1-492e-8954-6a2be90dd543"
+                        ],
+                        "portsOutOrder": [],
+                        "parameters": [],
+                        "zrnaType": "AudioOut"
+                    },
+                    "bfeb3675-2afc-4e99-9035-d3e0bc6dc487": {
+                        "id": "bfeb3675-2afc-4e99-9035-d3e0bc6dc487",
+                        "type": "analog-module-node",
+                        "x": 285.83459810814344,
+                        "y": 269.55540382364416,
+                        "ports": [
+                            {
+                                "id": "6a5f4a7b-5b2e-4d8f-a318-2757d662ab4b",
+                                "type": "default",
+                                "x": 375.5732095147592,
+                                "y": 417.05832531914496,
+                                "name": "saw",
+                                "alignment": "right",
+                                "parentNode": "bfeb3675-2afc-4e99-9035-d3e0bc6dc487",
+                                "links": [
+                                    "47991cf3-b260-41b0-a6f9-f95238fcb489"
+                                ],
+                                "in": false,
+                                "label": "saw"
+                            },
+                            {
+                                "id": "acae8a0b-faa7-4b34-944b-f7da70f9fde3",
+                                "type": "default",
+                                "x": 375.5732095147592,
+                                "y": 433.0552277909187,
+                                "name": "pulse",
+                                "alignment": "right",
+                                "parentNode": "bfeb3675-2afc-4e99-9035-d3e0bc6dc487",
+                                "links": [],
+                                "in": false,
+                                "label": "pulse"
+                            }
+                        ],
+                        "name": "OscillatorSaw 3",
+                        "color": "#974fcc",
+                        "portsInOrder": [],
+                        "portsOutOrder": [
+                            "6a5f4a7b-5b2e-4d8f-a318-2757d662ab4b",
+                            "acae8a0b-faa7-4b34-944b-f7da70f9fde3"
+                        ],
+                        "parameters": [
+                            "oscillation_frequency",
+                            "peak_amplitude"
+                        ],
+                        "zrnaType": "OscillatorSaw"
+                    }
+                }
+            }
+        ]
+    }
+}
