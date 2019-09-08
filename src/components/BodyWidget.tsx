@@ -71,10 +71,12 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 
 							var node: AnalogModuleNodeModel;
 							const analogModule = this.props.analogModules.find((m) => m.type === data.type);
+							// Initialize parameters with 0 values
+							const parameters = _.zipObject(analogModule!.parameters, _.fill(Array(analogModule!.parameters.length), 0));
 							node = new AnalogModuleNodeModel(
 								{
 									zrnaType: analogModule!.type,
-									parameters: analogModule!.parameters,
+									parameters: parameters,
 									name: analogModule!.type + ' ' + (nodesCount + 1),
 									color: Helper.stringToColor(analogModule!.type)
 								});
@@ -95,13 +97,11 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 							buttons={
 								<DemoButton
 									onClick={() => {
-										console.log("jajajaja");
-										//const nodes = this.props.app.getDiagramEngine().getModel().getNodes();
 										const model = this.props.app.getDiagramEngine().getModel().serialize();
+										console.log(model);
 										request.post("http://localhost:5000").json({ model: model });
-										console.log("ende");
 									}}>
-									Serialize Graph
+									Upload circuit
 								</DemoButton>
 							}>
 							<DemoCanvasWidget>

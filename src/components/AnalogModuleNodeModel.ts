@@ -1,23 +1,31 @@
 import { DefaultNodeModel, DefaultNodeModelOptions } from '@projectstorm/react-diagrams';
+import { Dictionary } from 'lodash';
+
+type Parameters = Dictionary<number>;
 
 export interface AnalogModuleNodeOptions extends DefaultNodeModelOptions {
-	parameters?: string[];
+	parameters?: Parameters;
 	zrnaType?: string;
 }
 
 export class AnalogModuleNodeModel extends DefaultNodeModel {
-	protected parameters: string[];
 	protected zrnaType: string;
+	protected parameters: {};
 	constructor(options: AnalogModuleNodeOptions = {}) {
 		super({
 			...options,
 			type: 'analog-module-node'
 		});
-		this.parameters = options.parameters || []
+		this.parameters = options.parameters || {}
 		this.zrnaType = options.zrnaType || ""
 	}
-	getParameters(): string[] {
+
+	getParameters(): {} {
 		return this.parameters;
+	}
+
+	setParameters(parameters: Parameters) {
+		this.parameters = parameters;
 	}
 
 	serialize() {

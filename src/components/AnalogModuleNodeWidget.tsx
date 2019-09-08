@@ -77,15 +77,29 @@ export interface AnalogModuleNodeProps {
  * for both all the input ports on the left, and the output ports on the right.
  */
 export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProps> {
+	constructor(props: AnalogModuleNodeProps) {
+		super(props);
+		this.state = props.node.getParameters();
+	}
+
+	handleKnob = (parameter: string) => {
+		return (value: number) => {
+			console.log("Changing parameter", parameter, value);
+			this.setState({[parameter]: value});
+			this.props.node.setParameters(this.state);
+			console.log(this.state);
+		}; 
+	}
+
 	generatePort = (port: DefaultPortModel) => {
 		return <DefaultPortLabel engine={this.props.engine} port={port} key={port.getID()} />;
 	};
 
-	generateKnob = (parameter: string) => {
+	generateKnob = (val: number, parameter: string) => {
 		return (
 			<div>
 				<div>{parameter}</div>
-				<Knob min={0} max={100} onChange={(p: string) => console.log("Changed knob " + p)}></Knob>
+				<Knob min={0} max={100} onChange={this.handleKnob(parameter)}></Knob>
 			</div>
 		)
 	}
