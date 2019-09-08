@@ -12,6 +12,7 @@
     "@types/node": "12.7.3",
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
+    "@types/request": "^2.48.2",
     "closest": "^0.0.1",
     "dagre": "^0.8.4",
     "lodash": "^4.17.15",
@@ -22,6 +23,7 @@
     "react-dom": "^16.9.0",
     "react-rotary-knob": "^1.1.5",
     "react-scripts": "3.1.1",
+    "request": "^2.88.0",
     "typescript": "3.6.2"
   },
   "scripts": {
