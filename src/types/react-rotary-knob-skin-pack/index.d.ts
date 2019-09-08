@@ -1,0 +1,1 @@
+declare module 'react-rotary-knob-skin-pack';

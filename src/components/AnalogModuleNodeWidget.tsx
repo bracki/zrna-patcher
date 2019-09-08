@@ -5,6 +5,7 @@ import { DefaultPortLabel, DefaultPortModel } from '@projectstorm/react-diagrams
 import styled from '@emotion/styled';
 import { AnalogModuleNodeModel } from './AnalogModuleNodeModel';
 import { Knob } from 'react-rotary-knob';
+import * as skins from 'react-rotary-knob-skin-pack';
 
 export const Node = styled.div<{ background: string; selected: boolean }>`
 		background-color: ${p => p.background};
@@ -72,11 +73,15 @@ export interface AnalogModuleNodeProps {
 	engine: DiagramEngine;
 }
 
+export interface AnalogModuleNodeState {
+	[key: string]: number;
+}
+
 /**
  * Default node that models the DefaultNodeModel. It creates two columns
  * for both all the input ports on the left, and the output ports on the right.
  */
-export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProps> {
+export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProps, AnalogModuleNodeState> {
 	constructor(props: AnalogModuleNodeProps) {
 		super(props);
 		this.state = props.node.getParameters();
@@ -84,7 +89,6 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 
 	handleKnob = (parameter: string) => {
 		return (value: number) => {
-			console.log("Changing parameter", parameter, value);
 			this.setState({[parameter]: value});
 			this.props.node.setParameters(this.state);
 			console.log(this.state);
@@ -99,7 +103,7 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 		return (
 			<div>
 				<div>{parameter}</div>
-				<Knob min={0} max={100} onChange={this.handleKnob(parameter)}></Knob>
+				<Knob skin={skins.s10} min={0} max={100} onChange={this.handleKnob(parameter)} value={this.state[parameter]}></Knob>
 			</div>
 		)
 	}

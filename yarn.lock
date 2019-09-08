@@ -8374,7 +8374,14 @@ react-move@^2.7.0:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
-react-rotary-knob@^1.1.5:
+react-rotary-knob-skin-pack@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-rotary-knob-skin-pack/-/react-rotary-knob-skin-pack-1.0.2.tgz#b90619c312e2c562d42be98fbd13ab59267f6377"
+  integrity sha512-QnuEIyAsJVP+KRsBDUQRTxy5n+4q8Z0DseMhXBKF2OfS/VZMohR8qJW1Xxzo1V94oX38oFK9jNvxFQ/gkZApVw==
+  dependencies:
+    react-rotary-knob "^1.0.13"
+
+react-rotary-knob@^1.0.13, react-rotary-knob@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/react-rotary-knob/-/react-rotary-knob-1.1.5.tgz#9dac2870d68ba8aeefbc7a01de2e833da2e79aaa"
   integrity sha512-+Lkg0+bBaELp2Aw2mo27ksmw1q2x2TVPue17zt/bxV3O6/BZh6mIgRHk2AeQ8MZD7vNEMs907EPBR8MoBjusUw==
