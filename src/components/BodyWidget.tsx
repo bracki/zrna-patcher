@@ -9,7 +9,6 @@ import { DemoButton, DemoWorkspaceWidget } from '../helpers/DemoWorkspaceWidget'
 import { Helper } from '../helpers/Helper';
 import { AnalogModule } from '../zrna/AnalogModule';
 import { AnalogModuleNodeModel } from './AnalogModuleNodeModel';
-import { TrayItemWidget } from './TrayItemWidget';
 import { TrayWidget } from './TrayWidget';
 
 export interface BodyWidgetProps {
@@ -54,11 +53,7 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 					<div className="title">ZRNA patcher</div>
 				</Header>
 				<Content>
-					<TrayWidget>
-						{this.props.analogModules.map((m: AnalogModule, i: number) => (
-							<TrayItemWidget model={{ type: m.type }} name={m.type} color={Helper.stringToColor(m.type)} key={i} />
-						))}
-					</TrayWidget>
+					<TrayWidget analogModules={this.props.analogModules}/>
 					<Layer
 						onDrop={event => {
 							var data = JSON.parse(event.dataTransfer.getData('storm-diagram-node'));
