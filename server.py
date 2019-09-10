@@ -15,7 +15,10 @@ z = zrna.api.Client()
 z.connect()
 
 def circuit(data):
-    print(z)
+    """
+    Build a ZRNA circuit from JSON data.
+    The JSON data is build by serializing 'react-diagram's model.
+    """
     links = data["model"]["layers"][0]['models']
     nodes = data["model"]["layers"][1]['models']
 
@@ -32,36 +35,34 @@ def circuit(data):
 
     z.pause()
     z.clear()
+
+    # A dictionary of instantiated ZRNA modules
     live_modules = {}
+    
+    # Initialize the module and set the clock
     for module in zrna_modules.values():
         class_ = getattr(z, module.type)
         live_modules[module.id] = class_()
         live_modules[module.id].set_clock(z.CLOCK3)
         z.add(live_modules[module.id])
 
+    # Connect input/outputs
     for link in zrna_links.values():
-        print("diese geile verbindiuggn", link)
         source = live_modules[link.source]
         target = live_modules[link.target]
         sourceModule = zrna_modules[link.source]
-        print("source")
-        print(sourceModule)
         targetModule = zrna_modules[link.target]
-        print("target")
-        print(targetModule)
         source_port_name = sourceModule.ports[link.sourcePort].name
         target_port_name = targetModule.ports[link.targetPort].name
-        print("Connecting {0}.{1} to {2}.{3}".format(sourceModule.type, source_port_name, targetModule.type, target_port_name))
-
         sourcePort = getattr(source, source_port_name)
         targetPort = getattr(target, target_port_name)
-        print(sourcePort.connect)
         sourcePort.connect(targetPort)
 
-    print(z.nets())
-    print(z.circuit())
+    # Run the circuit
     z.set_divisor(z.CLOCK_SYS1, 4)
     z.run()
+
+    # Print out modules and their connections
     for m in live_modules.values():
         print(m)
         for o in m.inputs:
@@ -71,7 +72,7 @@ def circuit(data):
 
 
 @app.route('/', methods=["POST"])
-def hello():
+def func():
     print(request.json)
     circuit(request.json)
     return 'OK'

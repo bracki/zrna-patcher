@@ -22,8 +22,6 @@ export class SearchBar extends React.Component<SearchBarProps> {
 	}
 
 	handleFilterTextChange(e: React.ChangeEvent<HTMLInputElement>) {
-		console.log("jasjasdjasdjasd");
-		console.log(e.target.value);
 		this.props.onFilterTextChange(e.target.value);
 	}
 
@@ -53,8 +51,6 @@ export class TrayWidget extends React.Component<{}, TrayWidgetState> {
 	}
 
 	handleFilterTextChange(filterText: string) {
-		console.log("eulenbeule");
-		console.log(filterText);
 		this.setState({filterText: filterText});
 	}
 
