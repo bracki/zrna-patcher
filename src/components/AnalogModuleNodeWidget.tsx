@@ -91,7 +91,7 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 		return (value: number) => {
 			this.setState({[parameter]: value});
 			this.props.node.setParameters(this.state);
-			console.log(this.state);
+			console.log(this.props.node);
 		}; 
 	}
 
