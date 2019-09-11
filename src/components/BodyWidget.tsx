@@ -68,6 +68,7 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 							const analogModule = this.props.analogModules.find((m) => m.type === data.type);
 							// Initialize parameters with 0 values
 							const parameters = _.zipObject(analogModule!.parameters, _.fill(Array(analogModule!.parameters.length), 0));
+							// Create new node
 							node = new AnalogModuleNodeModel(
 								{
 									zrnaType: analogModule!.type,
@@ -75,8 +76,10 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 									name: analogModule!.type + ' ' + (nodesCount + 1),
 									color: Helper.stringToColor(analogModule!.type)
 								});
+				            // Initialize ports/connections
 							analogModule!.inputs.forEach((i) => node.addInPort(i));
 							analogModule!.outputs.forEach((i) => node.addOutPort(i));
+							// Place node where clicked
 							var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
 							node.setPosition(point);
 							this.props.app

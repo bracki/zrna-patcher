@@ -102,8 +102,8 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 	generateKnob = (val: number, parameter: string) => {
 		return (
 			<div>
-				<div>{parameter}</div>
-				<Knob skin={skins.s10} min={0} max={100} onChange={this.handleKnob(parameter)} value={this.state[parameter]}></Knob>
+				<div>{parameter} {this.state[parameter].toFixed(3)}</div>
+				<Knob unlockDistance={1} skin={skins.s9} min={0} max={1} onChange={this.handleKnob(parameter)} value={this.state[parameter]}></Knob>
 			</div>
 		)
 	}

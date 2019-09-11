@@ -38,13 +38,16 @@ def circuit(data):
 
     # A dictionary of instantiated ZRNA modules
     live_modules = {}
-    
+
     # Initialize the module and set the clock
     for module in zrna_modules.values():
         class_ = getattr(z, module.type)
         live_modules[module.id] = class_()
         live_modules[module.id].set_clock(z.CLOCK3)
         z.add(live_modules[module.id])
+        for p, v in module.parameters.items():
+            setattr(live_modules[module.id], p, v)
+    print(z.clocks()) 
 
     # Connect input/outputs
     for link in zrna_links.values():
