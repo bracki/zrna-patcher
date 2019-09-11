@@ -76,3 +76,9 @@ def func():
     print(request.json)
     circuit(request.json)
     return 'OK'
+
+@app.route('/circuit/module/<module_id>/parameter/<parameter>')
+def parameter(module_id, parameter):
+    print(module_id)
+    print(parameter)
+    print(request.json)
