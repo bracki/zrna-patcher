@@ -14,6 +14,9 @@ CORS(app)
 z = zrna.api.Client()
 z.connect()
 
+# A dictionary of instantiated ZRNA modules
+live_modules = {}
+
 def circuit(data):
     """
     Build a ZRNA circuit from JSON data.
@@ -24,6 +27,7 @@ def circuit(data):
 
     zrna_modules = {}
     for id, node in nodes.items():
+        print("Parameters:", node['parameters'])
         ports = {}
         for port in node['ports']:
             ports[port['id']] = ZrnaPort(id=port['id'], name=port['name'])
@@ -36,9 +40,6 @@ def circuit(data):
     z.pause()
     z.clear()
 
-    # A dictionary of instantiated ZRNA modules
-    live_modules = {}
-
     # Initialize the module and set the clock
     for module in zrna_modules.values():
         class_ = getattr(z, module.type)
@@ -47,7 +48,6 @@ def circuit(data):
         z.add(live_modules[module.id])
         for p, v in module.parameters.items():
             setattr(live_modules[module.id], p, v)
-    print(z.clocks()) 
 
     # Connect input/outputs
     for link in zrna_links.values():
@@ -73,15 +73,19 @@ def circuit(data):
         for o in m.outputs:
             print(getattr(m, o).connected_to)
 
-
 @app.route('/', methods=["POST"])
 def func():
     print(request.json)
     circuit(request.json)
     return 'OK'
 
-@app.route('/circuit/module/<module_id>/parameter/<parameter>')
+@app.route('/circuit/module/<module_id>/parameter/<parameter>', methods=["POST"])
 def parameter(module_id, parameter):
-    print(module_id)
-    print(parameter)
-    print(request.json)
+    try:
+        m = live_modules[module_id]
+        setattr(m, parameter, request.json['value'])
+        print(parameter)
+        print(request.json)
+        return 'OK'
+    except KeyError:
+        return "MEH"

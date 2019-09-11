@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { AnalogModuleNodeModel } from './AnalogModuleNodeModel';
 import { Knob } from 'react-rotary-knob';
 import * as skins from 'react-rotary-knob-skin-pack';
+import * as request from 'request';
 
 export const Node = styled.div<{ background: string; selected: boolean }>`
 		background-color: ${p => p.background};
@@ -91,7 +92,8 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 		return (value: number) => {
 			this.setState({[parameter]: value});
 			this.props.node.setParameters(this.state);
-			console.log(this.props.node);
+			const url = "http://localhost:5000/circuit/module/" + this.props.node.getID() + "/parameter/" + parameter;
+			request.post(url).json({ value: value });
 		}; 
 	}
 
