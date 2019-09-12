@@ -7,7 +7,7 @@ import { App } from '../App';
 import { DemoCanvasWidget } from '../helpers/DemoCanvasWidget';
 import { DemoButton, DemoWorkspaceWidget } from '../helpers/DemoWorkspaceWidget';
 import { Helper } from '../helpers/Helper';
-import { AnalogModule } from '../zrna/AnalogModule';
+import { AnalogModule, Option } from '../zrna/AnalogModule';
 import { AnalogModuleNodeModel } from './AnalogModuleNodeModel';
 import { TrayWidget } from './TrayWidget';
 
@@ -68,11 +68,23 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 							const analogModule = this.props.analogModules.find((m) => m.type === data.type);
 							// Initialize parameters with 0 values
 							const parameters = _.zipObject(analogModule!.parameters, _.fill(Array(analogModule!.parameters.length), 0));
+
+							// Initialize options with default values
+							// TODO move this to AnalogMdouleNodeModel
+							const geloet = _.map(analogModule!.options, (o: Option) => {
+								return {
+										 ...o,
+									value: o.valid_values[0]
+									}
+							})
+							const zrnaOptions = _.keyBy(geloet, 'name')
+
 							// Create new node
 							node = new AnalogModuleNodeModel(
 								{
 									zrnaType: analogModule!.type,
 									parameters: parameters,
+									zrnaOptions: zrnaOptions,
 									name: analogModule!.type + ' ' + (nodesCount + 1),
 									color: Helper.stringToColor(analogModule!.type)
 								});

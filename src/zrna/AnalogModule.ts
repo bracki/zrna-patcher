@@ -1,14 +1,20 @@
 import zrna from './zrna.json';
 
-export interface AnalogModule {
-    type: string;
-    options: Array<string>;
-    parameters: Array<string>;
-    inputs: Array<string>;
-    outputs: Array<string>;
+export interface Option {
+    name: string;
+    valid_values: string[];
+    value?: string;
 }
 
-export function analogModules(): Array<AnalogModule> {
+export interface AnalogModule {
+    type: string;
+    options: Option[];
+    parameters: string[];
+    inputs: string[];
+    outputs: string[];
+}
+
+export function analogModules(): AnalogModule[] {
     return zrna;
 }
 

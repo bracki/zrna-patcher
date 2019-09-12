@@ -2,9 +2,10 @@ from flask import Flask, escape, request
 from flask_cors import CORS
 import json
 import zrna
+import zrna.zr_pb2 as zr
 from collections import namedtuple
 
-ZrnaModule = namedtuple("ZrnaModule", ["id", "type", "parameters", "ports"])
+ZrnaModule = namedtuple("ZrnaModule", ["id", "type", "parameters", "ports", "options"])
 ZrnaLink = namedtuple("ZrnaLink", "id source sourcePort target targetPort")
 ZrnaPort = namedtuple("ZrnaPort", "id name")
 
@@ -31,7 +32,7 @@ def circuit(data):
         ports = {}
         for port in node['ports']:
             ports[port['id']] = ZrnaPort(id=port['id'], name=port['name'])
-        zrna_modules[id] = ZrnaModule(type=node['zrnaType'], parameters=node['parameters'], id=id, ports=ports)
+        zrna_modules[id] = ZrnaModule(type=node['zrnaType'], parameters=node['parameters'], id=id, ports=ports, options=node['zrnaOptions'])
 
     zrna_links = {}
     for id, link in links.items():
@@ -48,6 +49,8 @@ def circuit(data):
         z.add(live_modules[module.id])
         for p, v in module.parameters.items():
             setattr(live_modules[module.id], p, v)
+        for o in module.options.values():
+            setattr(live_modules[module.id], o['name'], zr.Option.Id.Value(o['value']))
 
     # Connect input/outputs
     for link in zrna_links.values():
@@ -75,12 +78,13 @@ def circuit(data):
 
 @app.route('/', methods=["POST"])
 def func():
-    print(request.json)
+    print("Circuit")
     circuit(request.json)
     return 'OK'
 
 @app.route('/circuit/module/<module_id>/parameter/<parameter>', methods=["POST"])
 def parameter(module_id, parameter):
+    print("parameter {0} {1}".format(module_id, parameter))
     try:
         m = live_modules[module_id]
         setattr(m, parameter, request.json['value'])

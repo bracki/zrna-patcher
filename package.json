@@ -21,6 +21,7 @@
     "paths-js": "^0.4.10",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-dropdown": "^1.6.4",
     "react-rotary-knob": "^1.1.5",
     "react-rotary-knob-skin-pack": "^1.0.2",
     "react-scripts": "3.1.1",
