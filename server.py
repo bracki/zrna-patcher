@@ -50,7 +50,7 @@ def circuit(data):
         for p, v in module.parameters.items():
             setattr(live_modules[module.id], p, v)
         for o in module.options.values():
-            setattr(live_modules[module.id], o['name'], zr.Option.Id.Value(o['value']))
+            setattr(live_modules[module.id], o['name'], zr.Option.Value.Value(o['value']))
 
     # Connect input/outputs
     for link in zrna_links.values():
