@@ -142,7 +142,7 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 
 	generateKnob = (val: number, parameter: string) => {
 		return (
-			<div>
+			<div key={parameter}>
 				<div>{parameter} {this.state.parameters[parameter].toFixed(3)}</div>
 				<Knob unlockDistance={1} skin={skins.s9} min={0} max={1} onChange={this.handleKnob(parameter)} value={this.state.parameters[parameter]}></Knob>
 			</div>
@@ -150,9 +150,8 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 	}
 
 	generateOption = (o: zrna.Option) => {
-		const defaultValue = o.valid_values[0];
 		return (
-			<div>
+			<div key={o.name}>
 				<div>{o.name}</div>
 				<Dropdown options={o.valid_values} value={o.value} onChange={this.handleOption(o.name)} placeholder="Select an option" />
 			</div>
