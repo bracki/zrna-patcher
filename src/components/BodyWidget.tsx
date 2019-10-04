@@ -159,8 +159,9 @@ export function BodyWidget(props: BodyWidgetProps) {
 									</DemoButton>
 									<DemoButton
 										onClick={() => {
-											const model = props.app.getDiagramEngine().getModel().serialize();
-											console.log(model);
+											console.log("CLEARING CIRCUIT");
+											props.app.resetActiveModel();
+											forceUpdate();
 										}}>
 										<MdClear /> Clear circuit
 									</DemoButton>
