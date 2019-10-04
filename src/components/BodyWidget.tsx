@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import * as _ from 'lodash';
 import * as React from 'react';
+import { useState } from 'react';
+import { MdPlayArrow } from "react-icons/md";
 import * as request from 'request';
 import { App } from '../App';
 import { DemoCanvasWidget } from '../helpers/DemoCanvasWidget';
@@ -45,6 +47,25 @@ export const Layer = styled.div`
 	flex-grow: 1;
 `;
 
+export interface PlayButtonProps {
+	isLive: boolean
+} 
+
+const PlayButton = styled.button<PlayButtonProps>`
+	background: rgb(60, 60, 60);
+	font-size: 14px;
+	padding: 5px 10px;
+	border: none;
+    color: ${props => props.isLive ? "lime" : "white"};
+	outline: none;
+	cursor: pointer;
+	margin: 2px;
+	border-radius: 3px;
+
+	&:hover {
+		background: rgb(0, 192, 255);
+	}
+`;
 //create your forceUpdate hook
 function useForceUpdate(){
     const [value, set] = React.useState(true); //boolean state
@@ -53,6 +74,7 @@ function useForceUpdate(){
 
 export function BodyWidget(props: BodyWidgetProps) {
 	const forceUpdate = useForceUpdate();
+	const [liveMode, setLiveMode] = useState(false);
 	return (
 		<Body>
 			<Header>
@@ -127,6 +149,9 @@ export function BodyWidget(props: BodyWidgetProps) {
 									}}>
 									Print circuit
 								</DemoButton>
+								<PlayButton onClick={() => { setLiveMode(!liveMode) }} isLive={liveMode}>
+									<MdPlayArrow/>
+								</PlayButton>
 							</div>
 						}>
 						<DemoCanvasWidget>
