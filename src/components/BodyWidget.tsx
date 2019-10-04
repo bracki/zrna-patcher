@@ -45,82 +45,96 @@ export const Layer = styled.div`
 	flex-grow: 1;
 `;
 
-export class BodyWidget extends React.Component<BodyWidgetProps> {
-	render() {
-		return (
-			<Body>
-				<Header>
-					<div className="title">ZRNA patcher</div>
-				</Header>
-				<Content>
-					<TrayWidget analogModules={this.props.analogModules}/>
-					<Layer
-						onDrop={event => {
-							var data = JSON.parse(event.dataTransfer.getData('storm-diagram-node'));
-							var nodesCount = _.keys(
-								this.props.app
-									.getDiagramEngine()
-									.getModel()
-									.getNodes()
-							).length;
+//create your forceUpdate hook
+function useForceUpdate(){
+    const [value, set] = React.useState(true); //boolean state
+    return () => set(value => !value); // toggle the state to force render
+}
 
-							var node: AnalogModuleNodeModel;
-							const analogModule = this.props.analogModules.find((m) => m.type === data.type);
-							// Initialize parameters with 0 values
-							const parameters = _.zipObject(analogModule!.parameters, _.fill(Array(analogModule!.parameters.length), 0));
-
-							// Initialize options with default values
-							// TODO move this to AnalogMdouleNodeModel
-							const geloet = _.map(analogModule!.options, (o: Option) => {
-								return {
-										 ...o,
-									value: o.valid_values[0]
-									}
-							})
-							const zrnaOptions = _.keyBy(geloet, 'name')
-
-							// Create new node
-							node = new AnalogModuleNodeModel(
-								{
-									zrnaType: analogModule!.type,
-									parameters: parameters,
-									zrnaOptions: zrnaOptions,
-									name: analogModule!.type + ' ' + (nodesCount + 1),
-									color: Helper.stringToColor(analogModule!.type)
-								});
-				            // Initialize ports/connections
-							analogModule!.inputs.forEach((i) => node.addInPort(i));
-							analogModule!.outputs.forEach((i) => node.addOutPort(i));
-							// Place node where clicked
-							var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
-							node.setPosition(point);
-							this.props.app
+export function BodyWidget(props: BodyWidgetProps) {
+	const forceUpdate = useForceUpdate();
+	return (
+		<Body>
+			<Header>
+				<div className="title">ZRNA patcher</div>
+			</Header>
+			<Content>
+				<TrayWidget analogModules={props.analogModules} />
+				<Layer
+					onDrop={event => {
+						var data = JSON.parse(event.dataTransfer.getData('storm-diagram-node'));
+						var nodesCount = _.keys(
+							props.app
 								.getDiagramEngine()
 								.getModel()
-								.addNode(node);
-							this.forceUpdate();
-						}}
-						onDragOver={event => {
-							event.preventDefault();
-						}}>
-						<DemoWorkspaceWidget
-							buttons={
+								.getNodes()
+						).length;
+
+						var node: AnalogModuleNodeModel;
+						const analogModule = props.analogModules.find((m) => m.type === data.type);
+						// Initialize parameters with 0 values
+						const parameters = _.zipObject(analogModule!.parameters, _.fill(Array(analogModule!.parameters.length), 0));
+
+						// Initialize options with default values
+						// TODO move this to AnalogMdouleNodeModel
+						const geloet = _.map(analogModule!.options, (o: Option) => {
+							return {
+								...o,
+								value: o.valid_values[0]
+							}
+						})
+						const zrnaOptions = _.keyBy(geloet, 'name')
+
+						// Create new node
+						node = new AnalogModuleNodeModel(
+							{
+								zrnaType: analogModule!.type,
+								parameters: parameters,
+								zrnaOptions: zrnaOptions,
+								name: analogModule!.type + ' ' + (nodesCount + 1),
+								color: Helper.stringToColor(analogModule!.type)
+							});
+						// Initialize ports/connections
+						analogModule!.inputs.forEach((i) => node.addInPort(i));
+						analogModule!.outputs.forEach((i) => node.addOutPort(i));
+						// Place node where clicked
+						var point = props.app.getDiagramEngine().getRelativeMousePoint(event);
+						node.setPosition(point);
+						props.app
+							.getDiagramEngine()
+							.getModel()
+							.addNode(node);
+						forceUpdate();
+					}}
+					onDragOver={event => {
+						event.preventDefault();
+					}}>
+					<DemoWorkspaceWidget
+						buttons={
+							<div>
 								<DemoButton
 									onClick={() => {
-										const model = this.props.app.getDiagramEngine().getModel().serialize();
+										const model = props.app.getDiagramEngine().getModel().serialize();
 										console.log(model);
 										request.post("http://localhost:5000").json({ model: model });
 									}}>
 									Upload circuit
 								</DemoButton>
-							}>
-							<DemoCanvasWidget>
-								<CanvasWidget engine={this.props.app.getDiagramEngine()} />
-							</DemoCanvasWidget>
-						</DemoWorkspaceWidget>
-					</Layer>
-				</Content>
-			</Body>
-		);
-	}
+								<DemoButton
+									onClick={() => {
+										const model = props.app.getDiagramEngine().getModel().serialize();
+										console.log(model);
+									}}>
+									Print circuit
+								</DemoButton>
+							</div>
+						}>
+						<DemoCanvasWidget>
+							<CanvasWidget engine={props.app.getDiagramEngine()} />
+						</DemoCanvasWidget>
+					</DemoWorkspaceWidget>
+				</Layer>
+			</Content>
+		</Body>
+	);
 }
