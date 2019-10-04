@@ -12,6 +12,8 @@ import { Helper } from '../helpers/Helper';
 import { AnalogModule, Option } from '../zrna/AnalogModule';
 import { AnalogModuleNodeModel } from './AnalogModuleNodeModel';
 import { TrayWidget } from './TrayWidget';
+import { GoMarkGithub } from "react-icons/go";
+
 
 export interface BodyWidgetProps {
 	app: App;
@@ -86,7 +88,7 @@ export function BodyWidget(props: BodyWidgetProps) {
 	return (
 		<Body>
 			<Header>
-				<div className="title">ZRNA patcher</div>
+				<div className="title">ZRNA patcher <a href="https://github.com/bracki/zrna-patcher"><GoMarkGithub/> bracki/zrna-patcher</a></div>
 			</Header>
 			<Content>
 				<TrayWidget analogModules={props.analogModules} />
