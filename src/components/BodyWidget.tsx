@@ -66,6 +66,10 @@ const PlayButton = styled.button<PlayButtonProps>`
 		background: rgb(0, 192, 255);
 	}
 `;
+
+// Are we in live mode?
+export const LiveModeContext = React.createContext(false);
+
 //create your forceUpdate hook
 function useForceUpdate(){
     const [value, set] = React.useState(true); //boolean state
@@ -82,6 +86,7 @@ export function BodyWidget(props: BodyWidgetProps) {
 			</Header>
 			<Content>
 				<TrayWidget analogModules={props.analogModules} />
+				<LiveModeContext.Provider value={liveMode}>
 				<Layer
 					onDrop={event => {
 						var data = JSON.parse(event.dataTransfer.getData('storm-diagram-node'));
@@ -149,7 +154,10 @@ export function BodyWidget(props: BodyWidgetProps) {
 									}}>
 									Print circuit
 								</DemoButton>
-								<PlayButton onClick={() => { setLiveMode(!liveMode) }} isLive={liveMode}>
+								<PlayButton onClick={() => { 
+									setLiveMode(!liveMode);
+									props.app.getDiagramEngine().getModel().getNodes()
+									}} isLive={liveMode}>
 									<MdPlayArrow/>
 								</PlayButton>
 							</div>
@@ -159,6 +167,7 @@ export function BodyWidget(props: BodyWidgetProps) {
 						</DemoCanvasWidget>
 					</DemoWorkspaceWidget>
 				</Layer>
+				</LiveModeContext.Provider>
 			</Content>
 		</Body>
 	);

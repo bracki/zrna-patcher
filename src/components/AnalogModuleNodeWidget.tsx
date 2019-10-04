@@ -11,6 +11,7 @@ import * as zrna from '../zrna/AnalogModule';
 import Dropdown from 'react-dropdown';
 import { Option } from 'react-dropdown';
 import 'react-dropdown/style.css';
+import { LiveModeContext } from './BodyWidget';
 
 
 export const Node = styled.div<{ background: string; selected: boolean }>`
@@ -115,6 +116,9 @@ export interface AnalogModuleNodeState {
  * for both all the input ports on the left, and the output ports on the right.
  */
 export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProps, AnalogModuleNodeState> {
+	static contextType = LiveModeContext;
+	context!: React.ContextType<typeof LiveModeContext>;
+
 	constructor(props: AnalogModuleNodeProps) {
 		super(props);
 		this.state = { parameters: props.node.getParameters(), options: props.node.getZrnaOptions() };
@@ -131,8 +135,13 @@ export class AnalogModuleNodeWidget extends React.Component<AnalogModuleNodeProp
 			}));
 
 			this.props.node.setParameters(this.state.parameters);
-			const url = "http://localhost:5000/circuit/module/" + this.props.node.getID() + "/parameter/" + parameter;
-			request.post(url).json({ value: value });
+			if (this.context) {
+				console.log("POSTING");
+				const url = "http://localhost:5000/circuit/module/" + this.props.node.getID() + "/parameter/" + parameter;
+				request.post(url).json({ value: value });
+			} else {
+				console.log("SKIPPING");
+			}
 		};
 	}
 
