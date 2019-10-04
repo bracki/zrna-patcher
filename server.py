@@ -66,7 +66,6 @@ def circuit(data):
 
     # Run the circuit
     z.set_divisor(z.CLOCK_SYS1, 4)
-    z.run()
 
     # Print out modules and their connections
     for m in live_modules.values():
@@ -93,3 +92,23 @@ def parameter(module_id, parameter):
         return 'OK'
     except KeyError:
         return "MEH"
+
+@app.route('/', methods=["DELETE"])
+def clear_circuit():
+    print("Clear circuit")
+    z.pause()
+    z.clear()
+    live_modules = {}
+    return 'OK'
+
+@app.route('/pause', methods=["POST"])
+def pause_circuit():
+    print("Pause circuit")
+    z.pause()
+    return 'OK'
+
+@app.route('/start', methods=["POST"])
+def start_circuit():
+    print("Run circuit")
+    z.run()
+    return 'OK'

@@ -88,7 +88,7 @@ export function BodyWidget(props: BodyWidgetProps) {
 	return (
 		<Body>
 			<Header>
-				<div className="title">ZRNA patcher <a href="https://github.com/bracki/zrna-patcher"><GoMarkGithub/> bracki/zrna-patcher</a></div>
+				<div className="title">ZRNA patcher <a href="https://github.com/bracki/zrna-patcher"><GoMarkGithub /> bracki/zrna-patcher</a></div>
 			</Header>
 			<Content>
 				<TrayWidget analogModules={props.analogModules} />
@@ -163,13 +163,20 @@ export function BodyWidget(props: BodyWidgetProps) {
 										onClick={() => {
 											console.log("CLEARING CIRCUIT");
 											props.app.resetActiveModel();
+											request.delete("http://localhost:5000");
 											forceUpdate();
 										}}>
 										<MdClear /> Clear circuit
 									</DemoButton>
 									<PlayButton onClick={() => {
 										setLiveMode(!liveMode);
-										props.app.getDiagramEngine().getModel().getNodes()
+										if (!liveMode) {
+											console.log("Starting...")
+											request.post("http://localhost:5000/start");
+										} else {
+											console.log("Pausing...")
+											request.post("http://localhost:5000/pause");
+										}
 									}} isLive={liveMode}>
 										<MdPlayArrow />
 									</PlayButton>
