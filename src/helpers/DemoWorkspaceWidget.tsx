@@ -35,9 +35,12 @@ export const DemoButton = styled.button`
 	cursor: pointer;
 	margin: 2px;
 	border-radius: 3px;
+	border-style: solid;
+	border-color: black;
 
-	&:hover {
-		background: rgb(0, 192, 255);
+	:hover {
+		border-color: white;
+		border-style: solid;
 	}
 `;
 
