@@ -1,4 +1,14 @@
 import * as React from 'react';
+import styled from '@emotion/styled';
+
+export const SearchInput = styled.input`
+	width: 22em;
+	font-family: Helvetica, Arial;
+	padding: 5px;
+	margin: 0px 10px;
+	border-radius: 5px;
+	margin-bottom: 2px;
+`;
 
 export interface SearchBarProps {
 	filterText: string
@@ -18,7 +28,7 @@ export class SearchBar extends React.Component<SearchBarProps> {
 	render() {
 		return (
 			<form>
-				<input
+				<SearchInput
 					type="text"
 					placeholder="Search..."
 					value={this.props.filterText}
