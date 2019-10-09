@@ -38,7 +38,6 @@ export class TrayWidget extends React.Component<TrayWidgetProps, TrayWidgetState
 		).sort((a: AnalogModule, b: AnalogModule) => {
 			return a.type.localeCompare(b.type)
 		});
-		console.log(analogModules);
 		return (
 			<Tray>
 				<SearchBar filterText={this.state.filterText} onFilterTextChange={this.handleFilterTextChange} />
