@@ -4,6 +4,8 @@ This is a graphical patcher for the [ZRNA board](https://zrna.org).
 
 :warning: It is currently in alpha mode, no warranty for anything. :warning:
 
+![screenshot](screenshot.png)
+
 # Prerequisites
 
 You will need:
