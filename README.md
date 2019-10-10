@@ -1,3 +1,30 @@
+# ZRNA patcher
+
+This is a graphical patcher for the [ZRNA board](https://zrna.org).
+:warning: It is currently in alpha mode, no warranty for anything. :warning:
+
+# Prerequisites
+
+You will need:
+
+- [node](https://nodejs.org/en/)
+- [yarn](https://yarnpkg.com/lang/en/)
+- [Python](https://www.python.org/)
+- [pipenv](https://github.com/pypa/pipenv)
+
+If you are using a Mac, open a terminal and paste the following:
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew install yarn pipenv
+```
+
+# Starting the software
+
+1. Open two terminals
+2. Type `make frontend` into the first one
+3. Type `make backend` into the second one
+
+# Software development
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -1,4 +1,7 @@
-server:
+frontend:
+	npm start
+
+backend:
 	env FLASK_APP=server.py FLASK_DEBUG=1 pipenv run flask run
 
 vscode: .vscode/settings.json
