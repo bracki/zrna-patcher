@@ -150,23 +150,27 @@ export function BodyWidget(props: BodyWidgetProps) {
 										console.log(model);
 										request.post("http://localhost:5000").json({ model: model });
 									}}>
-										<MdFileUpload /> Upload circuit
+										<MdFileUpload /> Upload circuit to ZRNA board
 									</DemoButton>
 									<DemoButton
 										onClick={() => {
 											const model = props.app.getDiagramEngine().getModel().serialize();
 											console.log(model);
 										}}>
-										<MdHelp /> Print circuit
+										<MdHelp /> Print circuit to browser console
 									</DemoButton>
 									<DemoButton
 										onClick={() => {
-											console.log("CLEARING CIRCUIT");
 											props.app.resetActiveModel();
-											request.delete("http://localhost:5000");
 											forceUpdate();
 										}}>
-										<MdClear /> Clear circuit
+										<MdClear /> Clear local circuit
+									</DemoButton>
+									<DemoButton
+										onClick={() => {
+											request.delete("http://localhost:5000");
+										}}>
+										<MdClear /> Clear circuit on ZRNA board
 									</DemoButton>
 									<PlayButton onClick={() => {
 										setLiveMode(!liveMode);
@@ -178,7 +182,7 @@ export function BodyWidget(props: BodyWidgetProps) {
 											request.post("http://localhost:5000/pause");
 										}
 									}} isLive={liveMode}>
-										<MdPlayArrow />
+										<MdPlayArrow /> {!liveMode ? "Run circuit" : "Pause circuit"}
 									</PlayButton>
 								</div>
 							}>
