@@ -1,6 +1,7 @@
 # ZRNA patcher
 
 This is a graphical patcher for the [ZRNA board](https://zrna.org).
+
 :warning: It is currently in alpha mode, no warranty for anything. :warning:
 
 # Prerequisites
@@ -23,6 +24,14 @@ brew install yarn pipenv
 1. Open two terminals
 2. Type `make frontend` into the first one
 3. Type `make backend` into the second one
+
+# Architecture
+
+The frontend uses [React](https://reactjs.org) and [react-diagrams](https://github.com/projectstorm/react-diagrams).
+
+The backend uses Python and [Flask](https://palletsprojects.com/p/flask/).
+
+![architecture](architecture.png)
 
 # Software development
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
